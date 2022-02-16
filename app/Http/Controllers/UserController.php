@@ -14,7 +14,7 @@ class UserController extends Controller
         try {
             $fields = $request->validate(
                 [
-                    'name' => 'required|string',
+                    'username' => 'required|string',
                     'email' => 'required|string|unique:users,email',
                     'password' => 'required|string|confirmed'
                 ]
@@ -25,7 +25,7 @@ class UserController extends Controller
 
         try {
             $user = User::create([
-                'name' => $fields['name'],
+                'username' => $fields['name'],
                 'email' => $fields['email'],
                 'password' => Hash::make($fields['password'])
             ]);
@@ -39,15 +39,15 @@ class UserController extends Controller
     public function login(Request $request) {
         try {
             $fields = $request->validate([
-                'email' => 'required|string',
+                'username' => 'required|string',
                 'password' => 'required|string'
             ]);
         } catch(Exception $e) {
             return response(['message' => $e->getMessage()], 400);
         }
 
-        try{
-            $user = User::where('email', $fields['email'])->first();
+        try {
+            $user = User::where('username', $fields['username'])->first();
         } catch(Exception $e) {
             return response(['message' => $e->getMessage()], 400);
         }
