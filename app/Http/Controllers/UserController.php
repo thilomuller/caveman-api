@@ -14,9 +14,10 @@ class UserController extends Controller
         try {
             $fields = $request->validate(
                 [
-                    'username' => 'required|string',
+                    'username' => 'required|string|unique:users,username',
                     'email' => 'required|string|unique:users,email',
-                    'password' => 'required|string|confirmed'
+                    'password' => 'required|string|confirmed',
+                    'name' => 'required|string'
                 ]
             );
         } catch (exception $e) {
@@ -25,9 +26,10 @@ class UserController extends Controller
 
         try {
             $user = User::create([
-                'username' => $fields['name'],
+                'username' => $fields['username'],
                 'email' => $fields['email'],
-                'password' => Hash::make($fields['password'])
+                'password' => Hash::make($fields['password']),
+                'name' => $fields['name']
             ]);
         } catch (exception $e) {
             return response(['message' => 'User could not be created'], 400);
