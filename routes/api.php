@@ -18,13 +18,13 @@ use App\Http\Controllers\CaveController;
 */
 
 // Users: Public Route
-Route::post('/user/register', [UserController::class, 'register']);
 Route::post('/user/login', [UserController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     
     //Users
-    Route::post('/user/logout', [UserController::class, 'logout']);
+    Route::post('/user/register', [UserController::class, 'register']);
+    Route::post('/user/logout'  , [UserController::class, 'logout']);
 
     //Caves
     Route::get('/cave', [CaveController::class, 'index']);
