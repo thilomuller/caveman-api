@@ -35,7 +35,7 @@ for ($x=0; $x < $limit; $x++) {
     $province_id = random_int(1,9);
     $cave_description = $faker->paragraph();
 
-    $num = DB::update("INSERT INTO caveman.caves (cave_Number, cave_name, site_type, country_id, province_id, cave_description, deleted_at, created_at, updated_at) VALUES ($caveno, '$cave_name', '$site_type', $country_id, $province_id, '$cave_description', NOW(), NOW(), NOW());");
+    $num = DB::update("INSERT INTO caveman.caves (cave_Number, cave_name, site_type, country_id, province_id, cave_description, deleted_at, created_at, updated_at) VALUES ($caveno, '$cave_name', '$site_type', $country_id, $province_id, '$cave_description', NULL, NOW(), NOW());");
 
     $caveno++;
 }
