@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\Caves;
 use Illuminate\Http\Request;
 
+define('DEFAULT_OFFSET', 0);
+define('DEFAULT_LIMIT', 50);
+define('MAX_LIMIT', 50);
+define('AVAILABLE_COLS', ['id', 'cave_number', 'cave_name', 'cave_description']);
+define('DEFAULT_COLS', ['id', 'cave_number', 'cave_name', 'cave_description']);
 
 class CaveController extends Controller
 {
@@ -29,16 +34,28 @@ class CaveController extends Controller
     }
 
     public function find(Request $request)
-    {
-
-        $find = Caves::select('id', 'cave_number', 'cave_name', 'cave_description');
-
-        if ($request['cave_name']) {
-            $find->where('cave_name', 'like', "%" . $request['cave_name'] . "%");
+    { 
+        if ($request['cols']) {
+            $cols = $request['cols'];
+            foreach ($request['cols'] as $col) {
+                if (!in_array($col,AVAILABLE_COLS)) {
+                    $cols = DEFAULT_COLS;
+                    break;
+                }
+            }
+        } else {
+            $cols = DEFAULT_COLS;
         }
+        $find = Caves::select($cols);
+
+        $limit = $request['limit']?$request['limit']:DEFAULT_LIMIT;
+        $limit = $limit>MAX_LIMIT?MAX_LIMIT:$limit;
+        $find->limit($limit);
+
+        $offset = $request['offset']?$request['offset']:DEFAULT_OFFSET;
+        $find->offset($offset);
 
         $result = $find->get();
-
         return $result;
     }
 
