@@ -11,5 +11,5 @@ class Caves extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['cave_Number', 'cave_name', 'site_type', 'country_id', 'province_id', 'cave_description'];
+    protected $fillable = ['cave_number', 'cave_name', 'site_type', 'country_id', 'province_id', 'cave_description'];
 }
