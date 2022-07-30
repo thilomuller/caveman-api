@@ -30,6 +30,7 @@ class CaveController extends Controller
      */
     public function store(Request $request)
     {
+        print $request;
         return Caves::create($request->all());
     }
 
