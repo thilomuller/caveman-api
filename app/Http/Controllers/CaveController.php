@@ -30,7 +30,6 @@ class CaveController extends Controller
      */
     public function store(Request $request)
     {
-        print $request;
         return Caves::create($request->all());
     }
 
@@ -80,7 +79,15 @@ class CaveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Caves::whereId($id)->update($request->all());
+        $message = "Error";
+        $status = 500;
+
+        if (Caves::whereId($id)->update($request->all())) {
+            $message = "Success";
+            $status = 200;
+        }
+        return response(['message' => $message], $status);
+
     }
 
     /**
