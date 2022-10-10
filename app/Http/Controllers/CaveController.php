@@ -68,7 +68,12 @@ class CaveController extends Controller
      */
     public function show($id)
     {
-        return Caves::where("id", "=", $id)->firstOrFail();
+
+        $cave = Caves::select("id", "cave_number", "cave_name", "cave_description")
+                ->where("id", "=", $id)
+                ->firstOrFail();
+
+        return $cave;
     }
 
     /**
