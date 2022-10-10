@@ -68,7 +68,12 @@ class CaveController extends Controller
      */
     public function show($id)
     {
-        return Caves::where("id", "=", $id)->firstOrFail();
+
+        $cave = Caves::select("id", "cave_number", "cave_name", "cave_description")
+                ->where("id", "=", $id)
+                ->firstOrFail();
+
+        return $cave;
     }
 
     /**
@@ -80,7 +85,15 @@ class CaveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Caves::whereId($id)->update($request->all());
+        $message = "Error";
+        $status = 500;
+
+        if (Caves::whereId($id)->update($request->all())) {
+            $message = "Success";
+            $status = 200;
+        }
+        return response(['message' => $message], $status);
+
     }
 
     /**
