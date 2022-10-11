@@ -23,10 +23,10 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/user/logout'  , [UserController::class, 'logout']);
 
     //Caves
-    Route::get('/cave', [CaveController::class, 'index']);
-    Route::get('/cave/{id}', [CaveController::class, 'show']);
-    Route::put('/cave', [CaveController::class, 'store']);
-    Route::delete('/cave/{id}', [CaveController::class, 'destroy']);
     Route::post('/cave/find', [CaveController::class, 'find']);
-    Route::put('/cave/{id}', [CaveController::class, 'update']);
+    Route::post('/cave/create', [CaveController::class, 'store']);
+    Route::post('/cave/update/{id}', [CaveController::class, 'update']);
+    Route::post('/cave/get/{id}', [CaveController::class, 'show']);
+    Route::post('/cave/delete/{id}', [CaveController::class, 'destroy']);
+
 });
