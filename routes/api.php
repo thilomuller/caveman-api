@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CaveController;
+use App\Http\Controllers\CountryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,12 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::post('/cave/update/{id}', [CaveController::class, 'update']);
     Route::post('/cave/get/{id}', [CaveController::class, 'show']);
     Route::post('/cave/delete/{id}', [CaveController::class, 'destroy']);
+
+    //Countries
+    Route::post('/country/create', [CountryController::class, 'store']);
+    Route::post('/country/update/{id}', [CountryController::class, 'update']);
+    Route::post('/country/get/{id}', [CountryController::class, 'show']);
+    Route::post('/country/delete/{id}', [CountryController::class, 'destroy']);
+    Route::post('/country/find', [CountryController::class, 'find']);
 
 });
