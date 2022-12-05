@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
@@ -15,11 +16,26 @@ class InitUserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'username' => 'admin',
-            'email' => 'admin@admin.co.za',
-            'password' => Hash::make('admin'),
-            'name' => 'Administrator'
-        ]);
+
+        $users = [
+            [
+                'username' => 'admin',
+                'email' => 'admin@admin.co.za',
+                'password' => 'admin',
+                'name' => 'Administrator'
+            ],
+        ];
+
+        foreach ($users as $user) {
+            User::firstOrCreate(
+                ['username' => $user['username']],
+                [
+                    'email' => $user['email'],
+                    'password' => Hash::make($user['password']),
+                    'name' => $user['name']
+                ]
+            );
+        }
+
     }
 }
